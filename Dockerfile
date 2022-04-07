@@ -27,15 +27,21 @@ RUN mamba install --quiet --yes \
     'dask' \
     'dill' \
     'h5py' \
+    'hublib' \
     'ipympl'\
     'ipywidgets' \
+    'keras' \
+    'logging' \
+    'maml' \
     'matplotlib-base' \
+    'monty' \
     'numba' \
     'numexpr' \
     'pandas' \
     'patsy' \
     'protobuf' \
     'pybinding' \
+    'pymatgen' \
     'pytables' \
     'scikit-image' \
     'scikit-learn' \
@@ -44,6 +50,7 @@ RUN mamba install --quiet --yes \
     'sqlalchemy' \
     'statsmodels' \
     'sympy' \
+    'tensorflow' \
     'widgetsnbextension'\
     'xlrd' && \
     mamba clean --all -f -y && \
