@@ -27,11 +27,9 @@ RUN mamba install --quiet --yes \
     'dask' \
     'dill' \
     'h5py' \
-    'hublib' \
     'ipympl'\
     'ipywidgets' \
     'keras' \
-    'logging' \
     'maml' \
     'matplotlib-base' \
     'monty' \
@@ -57,6 +55,8 @@ RUN mamba install --quiet --yes \
     fix-permissions "${CONDA_DIR}" && \
     fix-permissions "/home/${NB_USER}"
 
+RUN pip3 install hublib==0.9.96 
+
 # Install facets which does not have a pip or conda package at the moment
 WORKDIR /tmp
 RUN git clone https://github.com/PAIR-code/facets.git && \
@@ -64,6 +64,13 @@ RUN git clone https://github.com/PAIR-code/facets.git && \
     rm -rf /tmp/facets && \
     fix-permissions "${CONDA_DIR}" && \
     fix-permissions "/home/${NB_USER}"
+
+USER root
+
+RUN apt-get update && apt-get -y install software-properties-common
+RUN add-apt-repository ppa:gladky-anton/lammps && add-apt-repository ppa:openkim/latest && apt-get update && apt-get -y install lammps-stable
+
+USER ${NB_UID}
 
 # Import matplotlib the first time to build the font cache.
 ENV XDG_CACHE_HOME="/home/${NB_USER}/.cache/"
