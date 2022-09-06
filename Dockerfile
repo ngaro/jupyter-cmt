@@ -1,7 +1,7 @@
 # Based on scipy-notebook of the Jupyter Development Team.
 # Distributed under the terms of the Modified BSD License.
 ARG OWNER=jupyter
-ARG BASE_CONTAINER=$OWNER/minimal-notebook
+ARG BASE_CONTAINER=$OWNER/datascience-notebook:python-3.9.13
 FROM $BASE_CONTAINER
 
 LABEL maintainer="Nikolas Garofil <nikolas.garofil@uantwerpen.be>"
@@ -18,6 +18,7 @@ USER ${NB_UID}
 # Install Python 3 packages
 RUN mamba install --quiet --yes \
     'altair' \
+    'ase' \
     'beautifulsoup4' \
     'bokeh' \
     'bottleneck' \
@@ -30,6 +31,7 @@ RUN mamba install --quiet --yes \
     'ipympl'\
     'ipywidgets' \
     'keras' \
+    'kwant' \
     'maml' \
     'matplotlib-base' \
     'monty' \
@@ -56,6 +58,7 @@ RUN mamba install --quiet --yes \
     fix-permissions "/home/${NB_USER}"
 
 RUN pip3 install hublib==0.9.96 
+RUN pip3 install spirit
 
 # Install facets which does not have a pip or conda package at the moment
 WORKDIR /tmp
