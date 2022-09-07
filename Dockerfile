@@ -59,7 +59,7 @@ RUN mamba install --quiet --yes \
 
 RUN pip3 install hublib==0.9.96 
 RUN pip3 install spirit
-RUN pip3 install kite
+#RUN pip3 install kite #FOUTE kite DOET IETS HEEEEELEMAAL ANDERS
 
 # Install facets which does not have a pip or conda package at the moment
 WORKDIR /tmp
