@@ -2,6 +2,7 @@
 # Distributed under the terms of the Modified BSD License.
 ARG OWNER=jupyter
 ARG BASE_CONTAINER=$OWNER/datascience-notebook:python-3.9.13
+ARG BUILDCORES=1
 FROM $BASE_CONTAINER
 
 LABEL maintainer="Nikolas Garofil <nikolas.garofil@uantwerpen.be>"
@@ -73,6 +74,11 @@ USER root
 
 RUN apt-get update && apt-get -y install software-properties-common
 RUN add-apt-repository ppa:gladky-anton/lammps && add-apt-repository ppa:openkim/latest && apt-get update && apt-get -y install lammps-stable
+
+#4 aanpassen naar cores
+RUN git clone https://github.com/quantum-kite/kite && cd kite && rm -rf .git && \
+cmake . && make -j $BUILDCORES install && cd tools && cmake . && make -j $BUILDCORES install && \
+python --version | perl -ne '/^\S+\s+(\d+\.\d+)/; system "mv /tmp/kite /opt/conda/lib/python$1/kite"'
 
 USER ${NB_UID}
 
