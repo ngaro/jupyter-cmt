@@ -41,3 +41,11 @@ The difference is that it also makes sure that the following modules are availab
 * tensorflow
 * widgetsnbextension
 * xlrd
+
+## Usage:
+Prepare usage:
+* Add the contents of `add_to_zshrc` at the bottom of your `~/.zshrc`<br>**Note that I am assuming that you are using zsh as shell !**<br>*If you are using bash it will probably also work by adding it to `~/.bashrc` but I haven't tested it yet.<br>(It might fail because of small syntax differences)*
+* Reload zsh with `source ~/.zshrc`
+
+From now you can run it with `jupyter-start` and stop it with `jupyter-stop`.<br>
+The first time you run it, it will have download the image. This can take a couple of minutes...
