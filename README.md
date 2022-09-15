@@ -43,8 +43,8 @@ The difference is that it also makes sure that the following modules are availab
 * xlrd
 
 ## Usage:
-* Install for `bash` and `zsh` by adding the content of the add_to_Xrc files to the rcfiles of the shell that you are using: `cat add_to_zshrc >> ~/.zshrc ; cat add_to_bashrc >> ~/.bashrc`
-* Reload your shellconfig *(use `source` on your rcfile or easier: just close the current terminal and open a new terminal)*
+* Install for `bash` and `zsh` by adding the content of the add_to_Xrc files to the rcfiles of the shell that you are using:<br>*Easiest way to do this: `cat add_to_zshrc >> ~/.zshrc ; cat add_to_bashrc >> ~/.bashrc`*
+* Reload your shellconfig:<br>*Use `source` on your rcfile or way easier: Just open a new terminal (and close the current one)*
 
 From now you can run it with `jupyter-start` and stop it with `jupyter-stop`.<br>
 The first time you run it, it will have download the image. This can take a couple of minutes...
