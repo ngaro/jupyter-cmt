@@ -43,9 +43,8 @@ The difference is that it also makes sure that the following modules are availab
 * xlrd
 
 ## Usage:
-Prepare usage:
-* Add the contents of `add_to_zshrc` at the bottom of your `~/.zshrc`<br>**Note that I am assuming that you are using zsh as shell !**<br>*If you are using bash it will probably also work by adding it to `~/.bashrc` but I haven't tested it yet.<br>(It might fail because of small syntax differences)*
-* Reload zsh with `source ~/.zshrc`
+* Install for `bash` and `zsh` by adding the content of the add_to_Xrc files to the rcfiles of the shell that you are using: `cat add_to_zshrc >> ~/.zshrc ; cat add_to_bashrc >> ~/.bashrc`
+* Reload your shellconfig *(use `source` on your rcfile or easier: just close the current terminal and open a new terminal)*
 
 From now you can run it with `jupyter-start` and stop it with `jupyter-stop`.<br>
 The first time you run it, it will have download the image. This can take a couple of minutes...
