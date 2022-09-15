@@ -1,5 +1,5 @@
-# Jupyter tweaked for the CMT research group at the UAntwerpen
-Jupyter in Docker with tools for studying condensed matter
+# Jupyter in Docker for Physics
+Jupyter in Docker with all tools for the CMT research group at the UAntwerpen
 
 This Jupyter contains everything in the "official" datascience notebook image of Jupyter based on Python 3.9.13.
 
