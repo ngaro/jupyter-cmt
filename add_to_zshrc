@@ -64,6 +64,6 @@ function jupyter-start () {
 	return 1;
 }
 
-function jupyter-start () {
+function jupyter-stop () {
 	docker stop jupyter
 }
