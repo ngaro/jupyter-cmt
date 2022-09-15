@@ -1,0 +1,69 @@
+function jupyter-find () {
+	url=$(docker logs jupyter 2>&1 | perl -ne 'print if(s/^.*(http:\/\/127\.0\.0\.1.*)/$1/)' | head -1)
+	if [[ -z $url ]] ; then
+		echo "Couldn't find the location of jupyter, jupyter is probably not running (anymore)" >&2
+		return 1
+	fi
+	echo $url
+	extern=$(curl -4 ifconfig.co 2> /dev/null)
+	extern=$(echo $url | perl -pne 's/127\.0\.0\.1/'$extern'/')
+	echo "To access it from another pc, use $extern";
+	return 0;
+}
+
+function jupyter-start () {
+	image="garo/jupyter-cmt"
+	uselabstring=""
+	debug="no"
+	dirtouse=$HOME
+	command="tini -g -- start-notebook.sh"
+	while [[ $# -gt 0 ]] ; do
+		opt=$1
+		shift
+		case "$opt" in
+			"-l" )
+				uselabstring="-e JUPYTER_ENABLE_LAB=yes";;
+			"--lab" )
+				uselabstring="-e JUPYTER_ENABLE_LAB=yes";;
+			"-d" )
+				debug="yes";;
+			"--debug" )
+				debug="yes";;
+			*)
+				dirtouse=$(readlink -f $opt);;
+		esac
+	done
+	if [[ ! -d $dirtouse ]] ; then
+		echo "Can't use '$dirtouse' as dir to use with jupyter, it isn't a dir." >&2
+		return 1;
+	fi
+	dockercommand=$(echo docker run -d --rm -p 8888:8888 --hostname jupyter --user root -v $dirtouse:$HOME -w $HOME --name jupyter \
+		-e NB_USER=$USER \
+		-e NB_UID=$UID \
+		-e NB_GID=$GID \
+		-e CHOWN_HOME=yes \
+		$uselabstring \
+	$image $command)
+	if [[ $debug == "yes" ]] ; then echo "Now running: $dockercommand" >&2 ; fi
+	dockeroutput=$(sh -c $dockercommand 2>&1)
+	if [[ $debug == "yes" ]] ; then echo "The output was: $dockeroutput" >&2 ; fi
+	if [[ $? -eq 0 ]] ; then
+		sleep 2
+		echo "Jupyter should now be running at: "
+		jupyter-find
+		return 0;
+	fi
+	echo $dockeroutput 2>&1 | grep 'is already in use by container' > /dev/null
+	if [[ $? -eq 0 ]] ; then
+		echo "Jupyter has already been started at: "
+		sleep 2
+		jupyter-find
+		return 0;
+	fi
+	echo "Problem with launching Jupyter, contact Nikolas or post a issue on https://github.com/ngaro/jupyter-cmt/issues" >&2
+	return 1;
+}
+
+function jupyter-start () {
+	docker stop jupyter
+}
