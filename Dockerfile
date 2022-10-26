@@ -28,6 +28,7 @@ RUN mamba install --quiet --yes \
     'cython' \
     'dask' \
     'dill' \
+    'fortranformat' \
     'h5py' \
     'ipympl'\
     'ipywidgets' \
