@@ -42,6 +42,7 @@ RUN mamba install --quiet --yes \
     'pandas' \
     'patsy' \
     'protobuf' \
+    'py4vasp' \
     'pybinding' \
     'pymatgen' \
     'pytables' \
